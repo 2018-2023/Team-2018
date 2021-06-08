@@ -1,11 +1,16 @@
 <template>
   <div id="about_container">
-    <span class="about_pointer" v-on:click="aboutModal">aaaaa</span>
-    <div id="mask" v-show="showModal" v-on:click="closeModal">
-      <section id="modal">
-        <div class="close" v-on:click="closeModal">x</div>
-      </section>
-    </div>
+    <span class="about_pointer" v-on:click="aboutModal">モーダル</span>
+    <div id="mask" v-show="showModal" v-on:click="closeModal"></div>
+    <section id="modal" v-show="showModal">
+      <div class="close">
+        <fa-icon
+          icon="times"
+          class="close_btn"
+          v-on:click="closeModal"
+        ></fa-icon>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -29,6 +34,7 @@ export default {
 .about_pointer {
   font-weight: bold;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 #mask {
@@ -59,10 +65,9 @@ export default {
 }
 .close {
   text-align: right;
-  margin-right: 5px;
+  margin: 10px 10px 0 0;
+}
+.close_btn {
   cursor: pointer;
 }
-/* #modal.hidden {
-  transform: translate(0, -500px);
-} */
 </style>
