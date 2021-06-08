@@ -5,11 +5,22 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/Login">Login</router-link> |
       <router-link to="/detail">詳細</router-link> |
-      <router-link to="/my-page">マイページ</router-link>
+      <router-link to="/my-page">マイページ</router-link> |
+      <Modal />
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import Modal from "@/components/Modal.vue"
+
+export default {
+  components: {
+    Modal,
+  },
+}
+</script>
 
 <style>
 #app {
