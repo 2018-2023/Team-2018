@@ -25,7 +25,6 @@
   height: 100%;
   width: 100px;
   padding: 30px;
-  background-color: black;
   display: none;
 
 }
@@ -87,6 +86,16 @@
   }
   .menu{
     display: block;
+    font-family: cursive;
+    font-size: 20px;
+    padding: 35px;
+    margin-right: 20px;
+    background-color: rgba(255, 255,255, 0.6);
+  }
+
+  .menu:hover{
+    background-color: rgba(255, 255,255, 0.9);
+    transition: 0.5s;
   }
   .title{
     justify-content: center;
