@@ -1,30 +1,22 @@
 <template>
+
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/Login">Login</router-link> |
-      <router-link to="/detail">詳細</router-link> |
-      <router-link to="/my-page">マイページ</router-link> |
-
-      <!-- fontAwsomeのvueでの使い方 -->
-      <fa-icon icon="moon"></fa-icon>
-      <fa-icon :icon="['fab', 'acquisitions-incorporated']"></fa-icon>
-      <fa-icon :icon="['far', 'address-book']"></fa-icon>
-      <!-- fontawesome終 -->
-
-      <Modal />
-    </div>
+    <Header />
     <router-view />
+    <Footer />
   </div>
 </template>
 
 <script>
+
+import Header from "@/components/Header.vue"
+import Footer from "@/components/Footer.vue"
 import Modal from "@/components/Modal.vue"
 
 export default {
   components: {
-    Modal,
+    Header,
+    Footer,
   },
 }
 </script>
@@ -36,18 +28,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
