@@ -5,11 +5,29 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/Login">Login</router-link> |
       <router-link to="/detail">詳細</router-link> |
-      <router-link to="/my-page">マイページ</router-link>
+      <router-link to="/my-page">マイページ</router-link> |
+
+      <!-- fontAwsomeのvueでの使い方 -->
+      <fa-icon icon="moon"></fa-icon>
+      <fa-icon :icon="['fab', 'acquisitions-incorporated']"></fa-icon>
+      <fa-icon :icon="['far', 'address-book']"></fa-icon>
+      <!-- fontawesome終 -->
+
+      <Modal />
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import Modal from "@/components/Modal.vue"
+
+export default {
+  components: {
+    Modal,
+  },
+}
+</script>
 
 <style>
 #app {
