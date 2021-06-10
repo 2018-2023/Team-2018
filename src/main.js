@@ -1,6 +1,8 @@
 import Vue from "vue"
 import App from "./App.vue"
 import router from "./router"
+// 地図ライブラリの導入
+import "leaflet/dist/leaflet.css"
 
 // FontAwesomeを使うための処理
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
