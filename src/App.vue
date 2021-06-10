@@ -1,5 +1,6 @@
 <template>
-  <div>
+
+  <div id="app">
     <Header />
     <router-view />
     <Footer />
@@ -7,8 +8,10 @@
 </template>
 
 <script>
+
 import Header from "@/components/Header.vue"
 import Footer from "@/components/Footer.vue"
+import Modal from "@/components/Modal.vue"
 
 export default {
   components: {
@@ -19,10 +22,11 @@ export default {
 </script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
 </style>
