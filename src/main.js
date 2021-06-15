@@ -18,6 +18,7 @@ Vue.component("fa-icon", FontAwesomeIcon)
 // fontAwesome終
 
 Vue.config.productionTip = false
+import "./firebase.js"
 
 new Vue({
   router,

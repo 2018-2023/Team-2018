@@ -2,9 +2,11 @@ import Vue from "vue"
 import VueRouter from "vue-router"
 import Home from "../views/Home.vue"
 import About from "../views/About.vue"
+import SignUp from "../views/SignUp.vue"
 import Login from "../views/Login.vue"
 import Detail from "../views/Detail.vue"
 import MyPage from "../views/MyPage.vue"
+import firebase from "firebase"
 
 Vue.use(VueRouter)
 
@@ -25,6 +27,11 @@ const routes = [
     component: MyPage,
   },
   {
+    path: "/signup",
+    name: "SignUp",
+    component: SignUp,
+  },
+  {
     path: "/login",
     name: "Login",
     component: Login,
@@ -42,4 +49,15 @@ const router = new VueRouter({
   routes,
 })
 
+let isSignedIn = () => {
+  return firebase.auth().currentUser
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.name === "MyPage" && !isSignedIn()) {
+    next("/Home")
+  } else {
+    next()
+  }
+})
 export default router

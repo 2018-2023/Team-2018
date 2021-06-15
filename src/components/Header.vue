@@ -3,17 +3,15 @@
     <div id="nav">
       <h1 class="title">アプリの名前</h1>
       <a href="#" class="menu">menu</a>
-      <router-link to="/" class="link" id="Home">Home</router-link> 
-      <router-link to="/about" class="link" id="About">About</router-link> 
-      <router-link to="/Login" class="link" id="Login">Login</router-link> 
-      <router-link to="/detail" class="link" id="detail">詳細</router-link> 
-      <router-link to="/my-page" class="link" id="mypage">マイページ</router-link>
+      <router-link to="/" class="link" id="Home">Home</router-link>
+      <router-link to="/about" class="link" id="About">About</router-link>
+      <router-link to="/signup" class="link" id="SignUp">SignUp</router-link>
+      <router-link to="/Login" class="link" id="Login">Login</router-link>
+      <router-link to="/detail" class="link" id="detail">詳細</router-link>
+      <router-link to="/my-page" class="link" id="mypage">mypage</router-link>
     </div>
   </div>
 </template>
-
-
-
 
 <style scoped>
 /* #app {
@@ -21,12 +19,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } */
-.menu{
+.menu {
   height: 100%;
   width: 100px;
   padding: 30px;
   display: none;
-
 }
 
 #nav {
@@ -38,26 +35,24 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  
 }
-.link{
+.link {
   display: flex;
-  padding:0px 20px;
+  padding: 0px 20px;
   align-items: center;
   font-family: cursive;
-  border-right: 1px solid black ;
-  background-color: rgba(255, 255,255, 0.6);
+  border-right: 1px solid black;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
-.link:hover{
-  background-color: rgba(255, 255,255, 0.9);
+.link:hover {
+  background-color: rgba(255, 255, 255, 0.9);
   transition: 0.5s;
 }
 
 #Home {
-  border-left: 1px solid black ;
+  border-left: 1px solid black;
 }
-
 
 .title {
   display: flex;
@@ -66,40 +61,35 @@
   padding-left: 30px;
 }
 
-
-
 #nav a {
   font-weight: bold;
-  color:black;
+  color: black;
   text-decoration: none;
-
 }
 
 #nav a.router-link-exact-active {
-  
   font-weight: bold;
 }
 
-@media(max-width:768px) {
+@media (max-width: 768px) {
   .link {
     display: none;
   }
-  .menu{
+  .menu {
     display: block;
     font-family: cursive;
     font-size: 20px;
     padding: 35px;
     margin-right: 20px;
-    background-color: rgba(255, 255,255, 0.6);
+    background-color: rgba(255, 255, 255, 0.6);
   }
 
-  .menu:hover{
-    background-color: rgba(255, 255,255, 0.9);
+  .menu:hover {
+    background-color: rgba(255, 255, 255, 0.9);
     transition: 0.5s;
   }
-  .title{
+  .title {
     justify-content: center;
   }
-
 }
 </style>

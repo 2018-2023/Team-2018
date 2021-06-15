@@ -3,37 +3,36 @@
     <div class="login_conatiner">
       <div class="text_container">
         <div class="input_container">
-          <input type="text" v-model="email" class="login_text" />
-          <input type="text" v-model="password" class="login_text two" />
-          <button v-on:click="signIn">サインイン</button>
-          <button v-on:click="gsignIn">Googleサインイン</button>
-          <button v-on:click="signOut">サインアウト</button>
+          <input type="email" v-model="email" class="login_text" />
+          <input type="password" v-model="password" class="two" />
+          <button v-on:click="signUp">登録</button>
+          <button v-on:click="gsignUp">Googleで登録</button>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import firebase from "firebase"
-
 export default {
   data: function () {
     return {
       email: "",
-      passowrd: "",
+      password: "",
+      user: null,
     }
   },
   methods: {
-    signIn() {
+    signUp() {
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
+        .createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
-          alert("signIn!")
           console.log(user)
+          alert("success!")
           this.$router.push("/")
         })
-
         .catch((error) => {
           const errorCode = error.code
           const errorMessage = error.message
@@ -41,22 +40,13 @@ export default {
         })
     },
 
-    gsignIn() {
+    gsignUp() {
       const provider = new firebase.auth.GoogleAuthProvider()
       firebase
         .auth()
         .signInWithPopup(provider)
         .then((user) => {
-          this.user = user
           console.log(user)
-        })
-    },
-    signOut() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.user = null
         })
     },
   },
@@ -82,7 +72,7 @@ export default {
   top: 50%;
   -webkit-transform: translateY(-50%); /* Safari用 */
   transform: translateY(-50%);
-  background-color: blue;
+  background-color: red;
 }
 .input_container {
   background-color: burlywood;
@@ -99,6 +89,9 @@ export default {
   /* margin-top: 3rem; */
 }
 .two {
+  display: block;
+  margin: 0 auto;
+  width: 15rem;
   margin-top: 2rem;
 }
 .submit {
