@@ -16,15 +16,26 @@
 <script>
 import firebase from "firebase"
 export default {
+  data: function () {
+    return {
+      email: "",
+      password: "",
+    }
+  },
   methods: {
     signUp() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
-          this.user = user
+          console(user)
+          alert("signup")
         })
-        .catch()
+        .catch((error) => {
+          const errorCode = error.code
+          const errorMessage = error.message
+          alert(errorCode + ":" + errorMessage)
+        })
     },
 
     gsignUp() {
