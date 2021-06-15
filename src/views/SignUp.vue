@@ -20,6 +20,7 @@ export default {
     return {
       email: "",
       password: "",
+      user: null,
     }
   },
   methods: {
@@ -28,8 +29,9 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
-          console(user)
-          alert("signup")
+          console.log(user)
+          alert("success!")
+          this.$router.push("/")
         })
         .catch((error) => {
           const errorCode = error.code
@@ -40,7 +42,12 @@ export default {
 
     gsignUp() {
       const provider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithRedirect(provider)
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((user) => {
+          console.log(user)
+        })
     },
   },
 }

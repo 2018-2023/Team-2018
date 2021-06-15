@@ -3,14 +3,65 @@
     <div class="login_conatiner">
       <div class="text_container">
         <div class="input_container">
-          <input type="text" class="login_text" />
-          <input type="text" class="login_text two" />
-          <input type="submit" value="Login" class="submit" />
+          <input type="text" v-model="email" class="login_text" />
+          <input type="text" v-model="password" class="login_text two" />
+          <button v-on:click="signIn">サインイン</button>
+          <button v-on:click="gsignIn">Googleサインイン</button>
+          <button v-on:click="signOut">サインアウト</button>
         </div>
       </div>
     </div>
   </div>
 </template>
+<script>
+import firebase from "firebase"
+
+export default {
+  data: function () {
+    return {
+      email: "",
+      passowrd: "",
+    }
+  },
+  methods: {
+    signIn() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then((user) => {
+          alert("signIn!")
+          console.log(user)
+          this.$router.push("/")
+        })
+
+        .catch((error) => {
+          const errorCode = error.code
+          const errorMessage = error.message
+          alert(errorCode + ":" + errorMessage)
+        })
+    },
+
+    gsignIn() {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((user) => {
+          this.user = user
+          console.log(user)
+        })
+    },
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.user = null
+        })
+    },
+  },
+}
+</script>
 
 <style scoped>
 #container {
