@@ -1,6 +1,6 @@
 <template>
   <div id="about_container">
-    <span class="about_pointer" v-on:click="aboutModal">モーダル</span>
+    <span class="about_pointer" v-on:click="aboutModal">Login</span>
     <div id="mask" v-show="showModal" v-on:click="closeModal"></div>
     <!-- ログインモーダル -->
     <section id="loginModal" v-show="showModal">
@@ -31,10 +31,21 @@
           <input type="text" v-model="password" class="login_text" />
         </li>
       </ul> -->
-      <button v-on:click="signIn">サインイン</button>
+      <fa-icon
+        icon="plus-square"
+        v-on:click="signIn"
+        class="submit_icon"
+      ></fa-icon>
+      <img
+        src="@/assets/google.png"
+        v-on:click="gsignIn"
+        class="google_icon"
+        alt="google_icon"
+      />
+      <!-- <button v-on:click="signIn">サインイン</button>
       <button v-on:click="gsignIn">Googleサインイン</button>
-      <button v-on:click="signOut">サインアウト</button>
-      <div>
+      <button v-on:click="signOut">サインアウト</button> -->
+      <div class="toSignUp_box">
         <span
           >まだ登録していない方は<span
             v-on:click="open_signUpModal"
@@ -68,8 +79,19 @@
           <input type="text" v-model="password" class="login_text" />
         </li>
       </ul> -->
-      <button v-on:click="signUp">登録</button>
-      <button v-on:click="gsignUp">Googleで登録</button>
+      <!-- <button v-on:click="signUp">登録</button> -->
+      <fa-icon
+        icon="plus-square"
+        v-on:click="signUp"
+        class="submit_icon"
+      ></fa-icon>
+      <!-- <button v-on:click="gsignUp">Googleで登録</button> -->
+      <img
+        src="@/assets/google.png"
+        v-on:click="gsignUp"
+        class="google_icon"
+        alt="google_icon"
+      />
     </section>
   </div>
 </template>
@@ -188,6 +210,7 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
+  cursor: pointer;
   z-index: 999;
 }
 /* #mask.hidden {
@@ -197,7 +220,7 @@ export default {
   background: #fff;
   color: #555;
   width: 400px;
-  height: 30%;
+  height: 35%;
   /* padding: 40px; */
   border-radius: 4px;
   position: absolute;
@@ -232,6 +255,16 @@ ul {
   list-style: none;
 }
 /* サインアップ */
+.toSignUp_box {
+  margin-top: 2.5rem;
+  /* position: absolute; */
+  /* bottom: 10px; */
+  /* left: 50%; */
+  /* margin: 0 auto; */
+  /* text-align: center; */
+  /* margin-bottom: 10px; */
+  font-size: 0.8rem;
+}
 .toSignUp {
   color: aqua;
   cursor: pointer;
@@ -241,7 +274,7 @@ ul {
   background: #fff;
   color: #555;
   width: 400px;
-  height: 30%;
+  height: 35%;
   /* padding: 40px; */
   border-radius: 4px;
   position: absolute;
@@ -272,5 +305,22 @@ ul {
 } */
 .two {
   margin-top: 2rem;
+}
+.google_icon {
+  width: 30px;
+  cursor: pointer;
+  position: absolute;
+  /* top: 90%; */
+  /* left: 90%; */
+  bottom: 15px;
+  right: 15px;
+}
+.submit_icon {
+  cursor: pointer;
+  font-size: 25px;
+  margin-top: 1rem;
+}
+.submit_icon:hover {
+  color: blue;
 }
 </style>
