@@ -5,13 +5,24 @@
       <a href="#" class="menu">menu</a>
       <router-link to="/" class="link" id="Home">Home</router-link>
       <router-link to="/about" class="link" id="About">About</router-link>
-      <router-link to="/signup" class="link" id="SignUp">SignUp</router-link>
-      <router-link to="/Login" class="link" id="Login">Login</router-link>
-      <router-link to="/detail" class="link" id="detail">詳細</router-link>
+      <!-- <router-link to="/signup" class="link" id="SignUp">SignUp</router-link> -->
+      <Modal class="link" />
+      <!-- <router-link to="/Login" class="link" id="Login">Login</router-link> -->
+      <!-- <router-link to="/detail" class="link" id="detail">詳細</router-link> -->
       <router-link to="/my-page" class="link" id="mypage">mypage</router-link>
     </div>
   </div>
 </template>
+
+<script>
+import Modal from "@/components/Modal.vue"
+
+export default {
+  components: {
+    Modal,
+  },
+}
+</script>
 
 <style scoped>
 /* #app {
@@ -37,6 +48,7 @@
   justify-content: flex-start;
 }
 .link {
+  /* cursor: pointer; */
   display: flex;
   padding: 0px 20px;
   align-items: center;
