@@ -1,9 +1,9 @@
 <template>
-  <div id="about_container">
-    <span class="about_pointer" v-on:click="aboutModal">Login</span>
-    <div id="mask" v-show="showModal" v-on:click="closeModal"></div>
+  <div id="login_container">
+    <span class="login_pointer" v-on:click="loginModal">Login</span>
+    <div id="mask" v-show="login_modal" v-on:click="closeModal"></div>
     <!-- ログインモーダル -->
-    <section id="loginModal" v-show="showModal">
+    <section id="loginModal" v-show="login_modal">
       <div class="head_box">
         <h1 class="login_caracter">Login</h1>
         <fa-icon
@@ -20,17 +20,6 @@
         <fa-icon icon="lock" class="two"></fa-icon>
         <input type="text" v-model="login_password" class="login_text two" />
       </div>
-      <!-- <ul>
-        <li>
-          <fa-icon :icon="['far', 'envelope']"></fa-icon>
-          <input type="text" v-model="email" class="login_text" />
-          <div></div>
-        </li>
-        <li>
-          <fa-icon icon="lock"></fa-icon>
-          <input type="text" v-model="password" class="login_text" />
-        </li>
-      </ul> -->
       <fa-icon
         icon="plus-square"
         v-on:click="signIn"
@@ -42,13 +31,10 @@
         class="google_icon"
         alt="google_icon"
       />
-      <!-- <button v-on:click="signIn">サインイン</button>
-      <button v-on:click="gsignIn">Googleサインイン</button>
-      <button v-on:click="signOut">サインアウト</button> -->
       <div class="toSignUp_box">
         <span
           >まだ登録していない方は<span
-            v-on:click="open_signUpModal"
+            v-on:click="open_signUpaModal"
             class="toSignUp"
             >こちら</span
           >から♪</span
@@ -56,7 +42,7 @@
       </div>
     </section>
     <!-- サインアップモーダル -->
-    <section id="signUpModal" v-show="signUpModal">
+    <section id="signUpModal" v-show="signUp_modal">
       <div class="head_box">
         <h1 class="login_caracter">SignUp</h1>
         <fa-icon
@@ -73,19 +59,11 @@
         <fa-icon icon="lock" class="two"></fa-icon>
         <input type="text" v-model="signUp_password" class="login_text two" />
       </div>
-      <!-- <ul>
-        <li><input type="text" v-model="email" class="login_text" /></li>
-        <li>
-          <input type="text" v-model="password" class="login_text" />
-        </li>
-      </ul> -->
-      <!-- <button v-on:click="signUp">登録</button> -->
       <fa-icon
         icon="plus-square"
         v-on:click="signUp"
         class="submit_icon"
       ></fa-icon>
-      <!-- <button v-on:click="gsignUp">Googleで登録</button> -->
       <img
         src="@/assets/google.png"
         v-on:click="gsignUp"
@@ -102,8 +80,8 @@ import firebase from "firebase"
 export default {
   data() {
     return {
-      showModal: false,
-      signUpModal: false,
+      login_modal: false,
+      signUp_modal: false,
       login_email: "",
       signUp_email: "",
       login_password: "",
@@ -112,13 +90,15 @@ export default {
     }
   },
   methods: {
-    aboutModal() {
-      this.showModal = true
+    loginModal() {
+      this.login_modal = true
     },
     closeModal() {
-      this.showModal = false
-      this.signUpModal = false
+      this.login_modal = false
+      this.signUp_modal = false
     },
+
+    // ログイン
     signIn() {
       firebase
         .auth()
@@ -127,7 +107,7 @@ export default {
           alert("signIn!")
           console.log(user)
           this.$router.push("/")
-          this.showModal = false
+          this.login_modal = false
         })
 
         .catch((error) => {
@@ -145,7 +125,7 @@ export default {
           this.user = user
           console.log(user)
           this.$router.push("/")
-          this.showModal = false
+          this.login_modal = false
         })
     },
     signOut() {
@@ -155,12 +135,13 @@ export default {
         .then(() => {
           this.user = null
           alert("ログアウトしました")
-          this.showModal = false
+          this.login_modal = false
         })
     },
-    // signUp
-    open_signUpModal() {
-      this.signUpModal = true
+
+    // サインアップ
+    open_signUpaModal() {
+      this.signUp_modal = true
     },
     signUp() {
       firebase
@@ -170,8 +151,8 @@ export default {
           console.log(user)
           alert("success!")
           this.$router.push("/")
-          this.showModal = false
-          this.signUpModal = false
+          this.login_modal = false
+          this.signUp_modal = false
         })
         .catch((error) => {
           const errorCode = error.code
@@ -188,8 +169,8 @@ export default {
         .then((user) => {
           console.log(user)
           this.$router.push("/")
-          this.showModal = false
-          this.signUpModal = false
+          this.login_modal = false
+          this.signUp_modal = false
         })
     },
   },
@@ -197,10 +178,9 @@ export default {
 </script>
 
 <style scoped>
-.about_pointer {
+.login_pointer {
   font-weight: bold;
   cursor: pointer;
-  /* text-decoration: underline; */
 }
 
 #mask {
@@ -210,12 +190,9 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  cursor: pointer;
+  /* cursor: pointer; */
   z-index: 999;
 }
-/* #mask.hidden {
-  display: none;
-} */
 #loginModal {
   background: #fff;
   color: #555;
@@ -231,7 +208,6 @@ export default {
   z-index: 1000;
 }
 .head_box {
-  /* display: flex; */
   position: relative;
   text-align: right;
   height: 30%;
@@ -257,12 +233,6 @@ ul {
 /* サインアップ */
 .toSignUp_box {
   margin-top: 2.5rem;
-  /* position: absolute; */
-  /* bottom: 10px; */
-  /* left: 50%; */
-  /* margin: 0 auto; */
-  /* text-align: center; */
-  /* margin-bottom: 10px; */
   font-size: 0.8rem;
 }
 .toSignUp {
@@ -298,11 +268,7 @@ ul {
   border-left: none;
   border-top: none;
   outline: none;
-  /* margin-top: 3rem; */
 }
-/* .login_text:last-child {
-  margin-top: 2rem;
-} */
 .two {
   margin-top: 2rem;
 }
@@ -310,8 +276,6 @@ ul {
   width: 30px;
   cursor: pointer;
   position: absolute;
-  /* top: 90%; */
-  /* left: 90%; */
   bottom: 15px;
   right: 15px;
 }
