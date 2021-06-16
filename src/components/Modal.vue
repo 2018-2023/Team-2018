@@ -14,11 +14,11 @@
       </div>
       <div class="input_box">
         <fa-icon :icon="['far', 'envelope']"></fa-icon>
-        <input type="text" v-model="email" class="login_text" />
+        <input type="text" v-model="login_email" class="login_text" />
       </div>
       <div class="input_box">
         <fa-icon icon="lock" class="two"></fa-icon>
-        <input type="text" v-model="password" class="login_text two" />
+        <input type="text" v-model="login_password" class="login_text two" />
       </div>
       <!-- <ul>
         <li>
@@ -56,11 +56,11 @@
       </div>
       <div class="input_box">
         <fa-icon :icon="['far', 'envelope']"></fa-icon>
-        <input type="text" v-model="email" class="login_text" />
+        <input type="text" v-model="signUp_email" class="login_text" />
       </div>
       <div class="input_box">
         <fa-icon icon="lock" class="two"></fa-icon>
-        <input type="text" v-model="password" class="login_text two" />
+        <input type="text" v-model="signUp_password" class="login_text two" />
       </div>
       <!-- <ul>
         <li><input type="text" v-model="email" class="login_text" /></li>
@@ -105,6 +105,7 @@ export default {
           alert("signIn!")
           console.log(user)
           this.$router.push("/")
+          this.showModal = false
         })
 
         .catch((error) => {
@@ -121,6 +122,8 @@ export default {
         .then((user) => {
           this.user = user
           console.log(user)
+          this.$router.push("/")
+          this.showModal = false
         })
     },
     signOut() {
@@ -129,6 +132,8 @@ export default {
         .signOut()
         .then(() => {
           this.user = null
+          alert("ログアウトしました")
+          this.showModal = false
         })
     },
     // signUp
@@ -143,6 +148,8 @@ export default {
           console.log(user)
           alert("success!")
           this.$router.push("/")
+          this.showModal = false
+          this.signUpModal = false
         })
         .catch((error) => {
           const errorCode = error.code
@@ -158,6 +165,9 @@ export default {
         .signInWithPopup(provider)
         .then((user) => {
           console.log(user)
+          this.$router.push("/")
+          this.showModal = false
+          this.signUpModal = false
         })
     },
   },
