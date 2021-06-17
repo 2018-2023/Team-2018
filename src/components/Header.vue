@@ -16,6 +16,7 @@
 
 <script>
 import Modal from "@/components/Modal.vue"
+// import firebase from "firebase"
 
 export default {
   components: {

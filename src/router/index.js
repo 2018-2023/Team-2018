@@ -6,7 +6,7 @@ import SignUp from "../views/SignUp.vue"
 import Login from "../views/Login.vue"
 import Detail from "../views/Detail.vue"
 import MyPage from "../views/MyPage.vue"
-import firebase from "firebase"
+// import firebase from "firebase"
 
 Vue.use(VueRouter)
 
@@ -49,15 +49,15 @@ const router = new VueRouter({
   routes,
 })
 
-let isSignedIn = () => {
-  return firebase.auth().currentUser
-}
+// let isSignedIn = () => {
+//   return firebase.auth().currentUser
+// }
 
-router.beforeEach((to, from, next) => {
-  if (to.name === "MyPage" && !isSignedIn()) {
-    next("/Home")
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.name !== ("Mypage" || "About") && !isSignedIn()) {
+//     next("/Home")
+//   } else {
+//     next()
+//   }
+// })
 export default router

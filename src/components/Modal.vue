@@ -1,6 +1,8 @@
 <template>
   <div id="login_container">
-    <span class="login_pointer" v-on:click="loginModal">Login</span>
+    <span class="login_pointer" v-on:click="signOut" v-if="user">Logout</span>
+    <span class="login_pointer" v-on:click="loginModal" v-else>Login</span>
+
     <div id="mask" v-show="login_modal" v-on:click="closeModal"></div>
     <!-- ログインモーダル -->
     <section id="loginModal" v-show="login_modal">
@@ -82,6 +84,8 @@ export default {
     return {
       login_modal: false,
       signUp_modal: false,
+      // loggedIn: false,
+      // notLoggedIn: true,
       login_email: "",
       signUp_email: "",
       login_password: "",
@@ -105,9 +109,11 @@ export default {
         .signInWithEmailAndPassword(this.login_email, this.login_password)
         .then((user) => {
           alert("signIn!")
-          console.log(user)
+          this.user = user
           this.$router.push("/")
           this.login_modal = false
+          // this.notLoggedIn = false
+          // this.loggedIn = true
         })
 
         .catch((error) => {
@@ -126,6 +132,8 @@ export default {
           console.log(user)
           this.$router.push("/")
           this.login_modal = false
+          // this.notLoggedIn = false
+          // this.loggedIn = true
         })
     },
     signOut() {
@@ -136,6 +144,9 @@ export default {
           this.user = null
           alert("ログアウトしました")
           this.login_modal = false
+          this.$router.push("/")
+          // this.loggedIn = false
+          // this.notLoggedIn = true
         })
     },
 
@@ -149,6 +160,7 @@ export default {
         .createUserWithEmailAndPassword(this.signUp_email, this.signUp_password)
         .then((user) => {
           console.log(user)
+          this.user = user
           alert("success!")
           this.$router.push("/")
           this.login_modal = false
@@ -168,6 +180,7 @@ export default {
         .signInWithPopup(provider)
         .then((user) => {
           console.log(user)
+          this.user = user
           this.$router.push("/")
           this.login_modal = false
           this.signUp_modal = false
