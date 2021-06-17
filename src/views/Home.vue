@@ -5,26 +5,27 @@
       <!-- 表示するタイル持ってくるURL -->
       <l-tile-layer :url="url" :attribution="attribution" />
       <!-- 現在地のピン -->
-      <l-marker :lat-lng="center">
-        <l-popup>
-          <div @click="handlePopUpClick">
-            あなたは今ここにいます。<br />you are here.
-            <p v-show="showParagraph">ここにはお店の情報が入ります</p>
-          </div>
-        </l-popup>
-      </l-marker>
+      <l-circle-marker
+        :lat-lng="center"
+        :radius="circle.radius"
+        :color="circle.color"
+      />
       <!-- 以下、お店のピン -->
       <l-marker
-        v-for="(data, num) in shopData"
-        :key="num"
+        v-for="(data, i) in shopData"
+        :key="i"
         :lat-lng="[data.lat, data.lng]"
       >
         <l-tooltip
           :options="{ permanent: true, interactive: true, direction: 'top' }"
         >
-          <div @click="handlePopUpClick">
-            {{ data.name }}<br />
-            <p v-show="showParagraph">ここにはお店の情報が入ります、いいね</p>
+          <div @click="handleToolTipClick(i)">
+            {{ data.name }} | ☆<br />
+            <p v-show="data.showDetail">
+              {{ data.genre }}<br />
+              {{ data.time }}<br />
+              {{ data.url }}
+            </p>
           </div>
         </l-tooltip>
       </l-marker>
@@ -35,7 +36,14 @@
 <script>
 // Open street Mapの読み込み
 import { Icon } from "leaflet"
-import { LMap, LTileLayer, LMarker, LTooltip, LPopup } from "vue2-leaflet"
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LTooltip,
+  LCircleMarker,
+} from "vue2-leaflet"
+
 // 非同期処理のライブラリ
 import axios from "axios"
 // ホットペッパーのレスポンスがXML形式だったので変換するためのライブラリ
@@ -55,7 +63,7 @@ export default {
     LTileLayer,
     LMarker,
     LTooltip,
-    LPopup,
+    LCircleMarker,
   },
   data() {
     return {
@@ -67,15 +75,17 @@ export default {
       // コピーライトの掲示
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-
+      circle: {
+        radius: 10,
+        color: "red",
+      },
       // 追加
-      showParagraph: false,
       shopData: [],
     }
   },
   methods: {
-    handlePopUpClick() {
-      this.showParagraph = !this.showParagraph
+    handleToolTipClick(index) {
+      this.shopData[index].showDetail = !this.shopData[index].showDetail
     },
     // 取得した位置情報を処理する
     success(position) {
@@ -93,25 +103,21 @@ export default {
         `/hotpepper/gourmet/v1/?key=e9cd52a7ae2c9ea3&lat=${this.center[0]}&lng=${this.center[1]}.52&range=5&count=100`
       )
       const data = await xmlToJson.parseStringPromise(res.data)
-      // console.log(data)
       data.results.shop.forEach((restaurant) => {
-        console.log(restaurant)
+        // console.log(restaurant)
         const info = {
           lat: restaurant.lat[0],
           lng: restaurant.lng[0],
           name: restaurant.name[0],
+          genre: restaurant.genre[0].name[0],
+          url: restaurant.urls[0].pc[0],
+          photo: restaurant.photo[0].mobile[0].l[0],
+          time: restaurant.open[0],
+          showDetail: false,
         }
         this.shopData.push(info)
       })
-      // console.log(this.shopData)
-
-      // メモ
-      // const res2 = await fetch(
-      //   `/hotpepper/gourmet/v1/?key=e9cd52a7ae2c9ea3&lat=${this.center[0]}&lng=${this.center[1]}.52&range=5&order=4`
-      // )
-      // console.log(res2)
-      // const data2 = await res2.json()
-      // console.log(data2)
+      console.log(this.shopData)
     },
   },
 }
