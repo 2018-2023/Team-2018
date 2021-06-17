@@ -55,9 +55,10 @@ let isSignedIn = () => {
 
 router.beforeEach((to, from, next) => {
   if (to.name === "MyPage" && !isSignedIn()) {
-    next("/Home")
+    next("/")
   } else {
     next()
   }
 })
+
 export default router
