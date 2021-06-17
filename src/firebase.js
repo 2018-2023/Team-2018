@@ -15,6 +15,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
+// 仮ユーザー情報
 const initialUserState = {
   uid: "",
   displayName: "",

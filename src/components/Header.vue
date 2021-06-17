@@ -19,9 +19,25 @@ import Modal from "@/components/Modal.vue"
 // import firebase from "firebase"
 
 export default {
+  data() {
+    return {
+      exist: false,
+    }
+  },
   components: {
     Modal,
   },
+  // method: {
+  //   confirm() {
+  //     firebase.auth().onAuthStateChanged((user) => {
+  //       if (user) {
+  //         this.exist = true
+  //       } else {
+  //         this.exist = false
+  //       }
+  //     })
+  //   },
+  // },
 }
 </script>
 
