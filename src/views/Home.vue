@@ -20,7 +20,9 @@
           :options="{ permanent: true, interactive: true, direction: 'top' }"
         >
           <div @click="handleToolTipClick(i)">
-            {{ data.name }} | ☆<br />
+            {{ data.name }} | <button v-if="liked" @click="like">☆</button>
+            <button v-else @click="cansel">★</button><br />
+            <!-- いいねbutton追加 -->
             <p v-show="data.showDetail">
               {{ data.genre }}<br />
               {{ data.time }}<br />
@@ -57,6 +59,8 @@ Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 })
 
+import firebase from "firebase" //いいね追加
+
 export default {
   components: {
     LMap,
@@ -81,6 +85,8 @@ export default {
       },
       // 追加
       shopData: [],
+
+      liked: false,
     }
   },
   methods: {
@@ -91,6 +97,38 @@ export default {
     success(position) {
       this.center = [position.coords.latitude, position.coords.longitude]
     },
+    // いいね機能
+    like() {
+      ;(this.liked = true),
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(firebase.auth().currentUser.uid)
+          .update({
+            //likesが配列
+            likes: firebase.firestore.FieldValue.arrayUnion({
+              name: this.data.name,
+              jenre: this.data.jenre,
+              time: this.data.time,
+            }),
+          })
+    },
+    //いいね取り消し
+    cancel() {
+      ;(this.liked = false),
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(firebase.auth().currentUser.uid)
+          .update({
+            likes: firebase.firestore.FieldValue.arrayRemove({
+              name: this.data.name,
+              jenre: this.data.jenre,
+              time: this.data.time,
+            }),
+          })
+    },
+    //いいね機能ここまで
   },
   created() {
     // 現在地を取得する

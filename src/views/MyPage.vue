@@ -17,12 +17,76 @@
 </template>
 
 <script>
+// import firebase from "firebase"
 export default {
+  // ログインしているユーザーを自動で取得
   computed: {
     user() {
       return this.$auth.currentUser
     },
   },
+  // いいねした店をfirestoreのlikesから取得して表示
+  // created() {
+  //   firebase
+  //     .firestore()
+  //     .collection("users")
+  //     .doc(firebase.auth().currentUser.uid)
+  //     .get()
+  //     .then((doc) => {
+  //       if (doc.exists) {
+  //         console.lod("DocumentData:", doc.data())
+  //       } else {
+  //         console.log("nodata")
+  //       }
+  //     })
+  // },
+
+  //Homeに書いたためコメントアウト
+  // methods: {
+  // get() {
+  //   firebase
+  //     .firestore()
+  //     .collection("users")
+  //     .doc(firebase.auth().currentUser.uid)
+  //     .get()
+  //     .then((doc) => {
+  //       if (doc.exists) {
+  //         this.likedShop = doc.data()
+  //       } else {
+  //         console.log("nodata")
+  //       }
+  //     })
+  // },
+  // like() {
+  //   firebase
+  //     .firestore()
+  //     .collection("users")
+  //     .doc(firebase.auth().currentUser.uid)
+  //     .update({
+  //       //likesが配列
+  //       likes: firebase.firestore.FieldValue.arrayUnion({
+  //         name: "sss",
+  //         adress: "aaa",
+  //         tell: "ddd",
+  //         ddd: "kkkk",
+  //       }),
+  //     })
+  // },
+  // cancel() {
+  //   firebase
+  //     .firestore()
+  //     .collection("users")
+  //     .doc(firebase.auth().currentUser.uid)
+  //     .update({
+  //       likes: firebase.firestore.FieldValue.arrayRemove({
+  //         name: "sss",
+  //         adress: "aaa",
+  //         tell: "ddd",
+  //         ddd: "kkkk",
+  //       }),
+  //     })
+  // },
+  // },
 }
 </script>
 
