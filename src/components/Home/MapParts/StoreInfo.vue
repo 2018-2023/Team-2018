@@ -88,6 +88,7 @@ export default {
           url: restaurant.urls[0].pc[0],
           photo: restaurant.photo[0].mobile[0].l[0],
           showDetail: false,
+          liked: false,
         }
         this.shopData.push(info)
       })
