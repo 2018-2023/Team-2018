@@ -20,8 +20,9 @@
           :options="{ permanent: true, interactive: true, direction: 'top' }"
         >
           <div @click="handleToolTipClick(i)">
-            {{ data.name }} | <button v-if="liked" @click="like">☆</button>
-            <button v-else @click="cansel">★</button><br />
+            {{ data.name }} | <button v-if="liked" @click="cancel">★</button>
+            <button v-else @click="like">☆</button><br />
+            <!-- 逆だった -->
             <!-- いいねbutton追加 -->
             <p v-show="data.showDetail">
               {{ data.genre }}<br />
@@ -98,7 +99,7 @@ export default {
       this.center = [position.coords.latitude, position.coords.longitude]
     },
     // いいね機能
-    like() {
+    like(index) {
       ;(this.liked = true),
         firebase
           .firestore()
@@ -107,14 +108,14 @@ export default {
           .update({
             //likesが配列
             likes: firebase.firestore.FieldValue.arrayUnion({
-              name: this.data.name,
-              jenre: this.data.jenre,
-              time: this.data.time,
+              name: this.shopData[index].name,
+              jenre: this.shopData[index].jenre,
+              time: this.shopData[index].time,
             }),
           })
     },
     //いいね取り消し
-    cancel() {
+    cancel(index) {
       ;(this.liked = false),
         firebase
           .firestore()
@@ -122,9 +123,9 @@ export default {
           .doc(firebase.auth().currentUser.uid)
           .update({
             likes: firebase.firestore.FieldValue.arrayRemove({
-              name: this.data.name,
-              jenre: this.data.jenre,
-              time: this.data.time,
+              name: this.shopData[index].name,
+              jenre: this.shopData[index].jenre,
+              time: this.shopData[index].time,
             }),
           })
     },
