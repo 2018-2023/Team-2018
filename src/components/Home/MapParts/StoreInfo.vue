@@ -10,8 +10,8 @@
       >
         <div @click="handleToolTipClick(data.id)">
           {{ data.name }} |
-          <button v-if="data.liked" @click="cancel(data.id)">★</button>
-          <button v-else @click="like(data.id)">☆</button><br />
+          <!-- <button v-if="data.liked" @click="cancel(data.id)">★</button>
+          <button v-else @click="like(data.id)">☆</button><br /> -->
           <p v-show="data.showDetail">
             {{ data.genre }}<br />
             {{ data.time }}<br />
@@ -56,6 +56,25 @@ export default {
       shopData: [],
     }
   },
+  computed: {
+    user() {
+      return this.$auth.currentUser
+    },
+  },
+  mounted() {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(this.user.uid)
+      .then((likeShops) => {
+        if (likeShops !== null) {
+          console.log(likeShops)
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
   methods: {
     handleToolTipClick(id) {
       for (let i = 0; i < this.shopData.length; i++) {
@@ -65,58 +84,58 @@ export default {
         }
       }
     },
-    like(id) {
-      for (let i = 0; i < this.shopData.length; i++) {
-        if (id === this.shopData[i].id) {
-          this.shopData[i].liked = true
-          firebase
-            .firestore()
-            .collection("users")
-            .doc(firebase.auth().currentUser.uid)
-            .update({
-              //likesが配列
-              likes: firebase.firestore.FieldValue.arrayUnion({
-                id: this.shopData[i].id,
-                lat: this.shopData[i].lat,
-                lng: this.shopData[i].lng,
-                name: this.shopData[i].name,
-                genre: this.shopData[i].genre,
-                genreCode: this.shopData[i].genreCode,
-                address: this.shopData[i].address,
-                time: this.shopData[i].time,
-                url: this.shopData[i].url,
-                photo: this.shopData[i].photo,
-              }),
-            })
-        }
-      }
-    },
+    // like(id) {
+    //   for (let i = 0; i < this.shopData.length; i++) {
+    //     if (id === this.shopData[i].id) {
+    //       this.shopData[i].liked = true
+    //       firebase
+    //         .firestore()
+    //         .collection("users")
+    //         .doc(firebase.auth().currentUser.uid)
+    //         .update({
+    //           //likesが配列
+    //           likes: firebase.firestore.FieldValue.arrayUnion({
+    //             id: this.shopData[i].id,
+    //             lat: this.shopData[i].lat,
+    //             lng: this.shopData[i].lng,
+    //             name: this.shopData[i].name,
+    //             genre: this.shopData[i].genre,
+    //             genreCode: this.shopData[i].genreCode,
+    //             address: this.shopData[i].address,
+    //             time: this.shopData[i].time,
+    //             url: this.shopData[i].url,
+    //             photo: this.shopData[i].photo,
+    //           }),
+    //         })
+    //     }
+    //   }
+    // },
 
-    cancel(id) {
-      for (let i = 0; i < this.shopData.length; i++) {
-        if (id === this.shopData[i].id) {
-          this.shopData[i].liked = false
-          firebase
-            .firestore()
-            .collection("users")
-            .doc(firebase.auth().currentUser.uid)
-            .update({
-              likes: firebase.firestore.FieldValue.arrayRemove({
-                id: this.shopData[i].id,
-                lat: this.shopData[i].lat,
-                lng: this.shopData[i].lng,
-                name: this.shopData[i].name,
-                genre: this.shopData[i].genre,
-                genreCode: this.shopData[i].genreCode,
-                address: this.shopData[i].address,
-                time: this.shopData[i].time,
-                url: this.shopData[i].url,
-                photo: this.shopData[i].photo,
-              }),
-            })
-        }
-      }
-    },
+    // cancel(id) {
+    //   for (let i = 0; i < this.shopData.length; i++) {
+    //     if (id === this.shopData[i].id) {
+    //       this.shopData[i].liked = false
+    //       firebase
+    //         .firestore()
+    //         .collection("users")
+    //         .doc(firebase.auth().currentUser.uid)
+    //         .update({
+    //           likes: firebase.firestore.FieldValue.arrayRemove({
+    //             id: this.shopData[i].id,
+    //             lat: this.shopData[i].lat,
+    //             lng: this.shopData[i].lng,
+    //             name: this.shopData[i].name,
+    //             genre: this.shopData[i].genre,
+    //             genreCode: this.shopData[i].genreCode,
+    //             address: this.shopData[i].address,
+    //             time: this.shopData[i].time,
+    //             url: this.shopData[i].url,
+    //             photo: this.shopData[i].photo,
+    //           }),
+    //         })
+    //     }
+    //   }
+    // },
   },
   watch: {
     center: async function () {
