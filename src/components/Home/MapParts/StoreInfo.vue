@@ -10,7 +10,7 @@
       >
         <div @click="handleToolTipClick(data.id)">
           {{ data.name }} |
-          <button v-if="liked" @click="cancel(data.id)">★</button>
+          <button v-if="data.liked" @click="cancel(data.id)">★</button>
           <button v-else @click="like(data.id)">☆</button><br />
           <p v-show="data.showDetail">
             {{ data.genre }}<br />
