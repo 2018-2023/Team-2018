@@ -1,21 +1,31 @@
 <template>
   <div>
     <l-marker
-      v-for="data in shopData"
+      v-for="data in allShopData"
       :key="data.id"
       :lat-lng="[data.lat, data.lng]"
     >
       <l-tooltip
         :options="{ permanent: true, interactive: true, direction: 'top' }"
       >
-        <div @click="handleToolTipClick(data.id)">
+        <div>
           {{ data.name }} |
+          <!-- いいね -->
           <span v-if="!data.liked" @click="like(data.id)">☆</span>
-          <span v-else @click="cancel(data.id)">★</span><br />
+          <span v-else @click="unLike(data.id)">★</span>
+          <!-- 詳細ボタン -->
+          <p v-if="!data.showDetail" @click="handleToolTipClick(data.id)">
+            詳細を見る
+          </p>
+          <p v-else @click="handleToolTipClick(data.id)">詳細を閉じる</p>
+          <!-- 詳細 -->
           <p v-show="data.showDetail">
             {{ data.genre }}<br />
             {{ data.time }}<br />
-            {{ data.address }}
+            {{ data.address }}<br />
+            <a :href="data.url" target="_blank" rel="noopener noreferrer"
+              >今すぐ予約！👈</a
+            >
           </p>
         </div>
       </l-tooltip>
@@ -53,74 +63,92 @@ export default {
   },
   data() {
     return {
-      shopData: [],
+      allShopData: [],
     }
   },
+  computed: {
+    user() {
+      return this.$auth.currentUser
+    },
+  },
   methods: {
+    // 詳細の開け閉め
     handleToolTipClick(id) {
-      for (let i = 0; i < this.shopData.length; i++) {
-        if (id === this.shopData[i].id) {
-          this.shopData[i].showDetail = !this.shopData[i].showDetail
+      for (let i = 0; i < this.allShopData.length; i++) {
+        if (id === this.allShopData[i].id) {
+          this.allShopData[i].showDetail = !this.allShopData[i].showDetail
           return
         }
       }
     },
-    like(id) {
-      for (let i = 0; i < this.shopData.length; i++) {
-        if (id === this.shopData[i].id) {
-          this.shopData[i].liked = true
+    // いいね
+    like(shopId) {
+      for (let i = 0; i < this.allShopData.length; i++) {
+        if (shopId === this.allShopData[i].id) {
+          this.allShopData[i].liked = true
           firebase
             .firestore()
             .collection("users")
-            .doc(this.$auth.currentUser.uid)
+            .doc(this.user.uid)
             .update({
               likeShops: firebase.firestore.FieldValue.arrayUnion({
-                id: this.shopData[i].id,
-                lat: this.shopData[i].lat,
-                lng: this.shopData[i].lng,
-                name: this.shopData[i].name,
-                genre: this.shopData[i].genre,
-                genreCode: this.shopData[i].genreCode,
-                address: this.shopData[i].address,
-                time: this.shopData[i].time,
-                url: this.shopData[i].url,
-                photo: this.shopData[i].photo,
+                id: this.allShopData[i].id,
+                lat: this.allShopData[i].lat,
+                lng: this.allShopData[i].lng,
+                name: this.allShopData[i].name,
+                genre: this.allShopData[i].genre,
+                genreCode: this.allShopData[i].genreCode,
+                address: this.allShopData[i].address,
+                time: this.allShopData[i].time,
+                url: this.allShopData[i].url,
+                photo: this.allShopData[i].photo,
               }),
-            })
-            .then(() => {
-              console.log("successfully updated")
             })
         }
       }
     },
-
-    cancel(id) {
-      for (let i = 0; i < this.shopData.length; i++) {
-        if (id === this.shopData[i].id) {
-          this.shopData[i].liked = false
+    // いいねの削除
+    unLike(shopId) {
+      for (let i = 0; i < this.allShopData.length; i++) {
+        if (shopId === this.allShopData[i].id) {
+          this.allShopData[i].liked = false
           firebase
             .firestore()
             .collection("users")
-            .doc(this.$auth.currentUser.uid)
+            .doc(this.user.uid)
             .update({
               likeShops: firebase.firestore.FieldValue.arrayRemove({
-                id: this.shopData[i].id,
-                lat: this.shopData[i].lat,
-                lng: this.shopData[i].lng,
-                name: this.shopData[i].name,
-                genre: this.shopData[i].genre,
-                genreCode: this.shopData[i].genreCode,
-                address: this.shopData[i].address,
-                time: this.shopData[i].time,
-                url: this.shopData[i].url,
-                photo: this.shopData[i].photo,
+                id: this.allShopData[i].id,
+                lat: this.allShopData[i].lat,
+                lng: this.allShopData[i].lng,
+                name: this.allShopData[i].name,
+                genre: this.allShopData[i].genre,
+                genreCode: this.allShopData[i].genreCode,
+                address: this.allShopData[i].address,
+                time: this.allShopData[i].time,
+                url: this.allShopData[i].url,
+                photo: this.allShopData[i].photo,
               }),
-            })
-            .then(() => {
-              console.log("successfully deleted")
             })
         }
       }
+    },
+    // すでにいいねしていたものを取得
+    async loadLikedShops() {
+      const ids = await firebase
+        .firestore()
+        .collection("users")
+        .doc(this.user.uid)
+        .get()
+        .then((doc) => {
+          return doc.data()
+        })
+        .then((data) => {
+          return data.likeShops.map((likedShop) => {
+            return likedShop.id
+          })
+        })
+      return ids
     },
   },
   watch: {
@@ -136,6 +164,8 @@ export default {
       )
       const data = await xmlToJson.parseStringPromise(res.data)
 
+      const ids = await this.loadLikedShops()
+
       data.results.shop.forEach((restaurant) => {
         const info = {
           id: restaurant.id[0],
@@ -149,9 +179,9 @@ export default {
           url: restaurant.urls[0].pc[0],
           photo: restaurant.photo[0].mobile[0].l[0],
           showDetail: false,
-          liked: false,
+          liked: ids.includes(restaurant.id[0]),
         }
-        this.shopData.push(info)
+        this.allShopData.push(info)
       })
     },
   },
