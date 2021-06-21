@@ -1,6 +1,8 @@
 <template>
   <div id="login_container">
-    <span class="login_pointer" v-on:click="signOut" v-if="user">Logout</span>
+    <span class="login_pointer" v-on:click="signOut" v-if="user.uid"
+      >Logout</span
+    >
     <span class="login_pointer" v-on:click="loginModal" v-else>Login</span>
 
     <div id="mask" v-show="login_modal" v-on:click="closeModal"></div>
@@ -90,8 +92,13 @@ export default {
       signUp_email: "",
       login_password: "",
       signUp_password: "",
-      user: null,
+      // user: null,
     }
+  },
+  computed: {
+    user() {
+      return this.$auth.currentUser
+    },
   },
   methods: {
     loginModal() {
@@ -141,7 +148,6 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          this.user = null
           alert("ログアウトしました")
           this.login_modal = false
           this.$router.push("/")
@@ -158,9 +164,14 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.signUp_email, this.signUp_password)
-        .then((user) => {
-          console.log(user)
-          this.user = user
+        .then((userInfo) => {
+          // console.log(this.$auth.currentUser.uid)
+          console.log(userInfo.user.uid)
+          firebase.firestore().collection("users").doc(userInfo.user.uid).set({
+            likeShops: [],
+          })
+          // console.log(this.$auth.currentUser.uid)
+          // this.user = user
           alert("success!")
           this.$router.push("/")
           this.login_modal = false
