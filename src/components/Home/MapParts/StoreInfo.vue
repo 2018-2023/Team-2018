@@ -83,6 +83,10 @@ export default {
     },
     // いいね
     like(shopId) {
+      if (this.user.uid === "") {
+        this.$router.push("/Login")
+        return
+      }
       for (let i = 0; i < this.allShopData.length; i++) {
         if (shopId === this.allShopData[i].id) {
           this.allShopData[i].liked = true
@@ -135,6 +139,9 @@ export default {
     },
     // すでにいいねしていたものを取得
     async loadLikedShops() {
+      if (this.user.uid === "") {
+        return []
+      }
       const ids = await firebase
         .firestore()
         .collection("users")
