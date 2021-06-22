@@ -1,27 +1,48 @@
 <template>
   <div>
-    <div class="signed-in-user-profile" v-if="user">
-      <div>uid : {{ user.uid }}</div>
-      <div>displayName : {{ user.displayName }}</div>
-
-      <div class="signed-in-user-profile__photo">
-        <img
-          v-bind:src="
-            user.photoURL ? user.photoURL : 'https://via.placeholder.com/150'
-          "
-        />
-      </div>
+    <div v-for="datum in data" :key="datum.id">
+      <a :href="datum.url">{{ datum.url }}</a>
+      {{ datum.photo }}
+      <img :src="datum.photo" alt="shopPhoto" />
     </div>
-    <div v-else>No User Signed In</div>
   </div>
 </template>
 
 <script>
+import firebase from "firebase"
+
 export default {
+  data() {
+    return {
+      data: [],
+    }
+  },
   computed: {
     user() {
       return this.$auth.currentUser
     },
+  },
+  created() {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(this.user.uid)
+      .get()
+      .then((doc) => {
+        return doc.data()
+      })
+      // .then((data) => {
+      //   this.data.push(data.likeShops)
+      //   console.log(this.data)
+      // })
+      .then((data) => {
+        data.likeShops.forEach((likedShop) => {
+          this.data.push(likedShop)
+        })
+        console.log(this.data)
+      })
+
+    // this.data.push(data.likeShops)
   },
 }
 </script>
