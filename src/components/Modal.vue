@@ -235,6 +235,7 @@ export default {
   position: relative;
   text-align: right;
   height: 30%;
+  background-color: red;
 }
 .close_btn {
   width: 15px;
