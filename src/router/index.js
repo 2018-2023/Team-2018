@@ -4,7 +4,6 @@ import Home from "../views/Home.vue"
 import About from "../views/About.vue"
 import SignUp from "../views/SignUp.vue"
 import Login from "../views/Login.vue"
-import Detail from "../views/Detail.vue"
 import MyPage from "../views/MyPage.vue"
 import firebase from "firebase"
 
@@ -35,11 +34,6 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
-  },
-  {
-    path: "/detail",
-    name: "Detail",
-    component: Detail,
   },
 ]
 

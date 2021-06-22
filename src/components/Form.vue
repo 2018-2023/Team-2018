@@ -6,12 +6,11 @@
         <img
           src="@/assets/google.png"
           @click="gFunc"
-          class="google"
+          class="google_icon"
           alt="google_icon"
         />
         <fa-icon icon="mouse-pointer" class="mouse_pointer"></fa-icon>
       </div>
-      <!-- <div class="underline"></div> -->
       <div class="input_box">
         <fa-icon :icon="['far', 'envelope']"></fa-icon>
         <input type="text" v-model="email" class="form_text" />
@@ -40,36 +39,17 @@
 </template>
 
 <script>
-import firebase from "firebase"
-
 export default {
   data() {
     return {
       email: "",
       password: "",
-      text: true,
     }
   },
   props: {
     title: { type: String, required: true },
     func: { type: Function, required: true },
     gFunc: { type: Function, required: true },
-    router: { type: Function, required: true },
-  },
-  methods: {
-    gSign() {
-      const provider = new firebase.auth.GoogleAuthProvider()
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then((userInfo) => {
-          firebase.firestore().collection("users").doc(userInfo.user.uid).set({
-            likeShops: [],
-          })
-          alert("Gsuccess")
-          this.$router.push("/")
-        })
-    },
   },
 }
 </script>
@@ -96,9 +76,6 @@ export default {
 .head_box {
   height: 75px;
   position: relative;
-  /* background-color: hotpink; */
-  /* margin-left: 10px; */
-  /* border-bottom: 1px solid blue; */
 }
 .form_title {
   margin-left: 10px;
@@ -107,7 +84,7 @@ export default {
   line-height: 75px;
   font-size: 1.5rem;
 }
-.google {
+.google_icon {
   position: absolute;
   top: 23px;
   right: 15px;
@@ -154,41 +131,8 @@ export default {
 .submit_icon:hover {
   color: blue;
 }
-.form_btn {
-  width: 16rem;
-  height: 3rem;
-  display: block;
-  /* margin-left: 0.5rem; */
-}
-.g_form_btn {
-  width: 7.5rem;
-  height: 3rem;
-  display: block;
-  /* margin-left: 1rem; */
-  position: relative;
-}
-.google_icon {
-  width: 20%;
-  /* height: 20%; */
-  position: absolute;
-  top: 40%;
-  left: 40%;
-}
 .toSignUp_box {
   margin-top: 2.5rem;
   font-size: 0.8rem;
 }
-/* .login_btn {
-  width: 7.5rem;
-  font-size: 2.2rem; */
-/* height: 3rem; */
-/* height: 40px; */
-/* } */
-/* .login_btn:last-child {
-  margin-left: 1rem;
-} */
-/* .google_icon {
-  width: 2.2rem;
-  line-height: 2.2rem;
-} */
 </style>

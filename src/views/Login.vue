@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <Form title="Login" :func="signIn" :gFunc="gsignIn" router="/signup/" />
+    <Form title="Login" :func="signIn" :gFunc="gsignIn" />
   </div>
 </template>
 
@@ -13,20 +13,13 @@ export default {
     Form,
   },
   methods: {
-    test(text, password) {
-      console.log(text, password)
-    },
     signIn(email, password) {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
           alert("signIn!")
-          // this.user = user
           this.$router.push("/")
-          // this.login_modal = false
-          // this.notLoggedIn = false
-          // this.loggedIn = true
         })
 
         .catch((error) => {
