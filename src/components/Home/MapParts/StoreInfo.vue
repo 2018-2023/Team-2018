@@ -167,21 +167,30 @@ export default {
       const ids = await this.loadLikedShops()
 
       data.results.shop.forEach((restaurant) => {
-        const info = {
-          id: restaurant.id[0],
-          lat: restaurant.lat[0],
-          lng: restaurant.lng[0],
-          name: restaurant.name[0],
-          genre: restaurant.genre[0].name[0],
-          genreCode: restaurant.genre[0].code[0],
-          address: restaurant.address[0],
-          time: restaurant.open[0],
-          url: restaurant.urls[0].pc[0],
-          photo: restaurant.photo[0].mobile[0].l[0],
-          showDetail: false,
-          liked: ids.includes(restaurant.id[0]),
+        const genreCode = restaurant.genre[0].code[0]
+        if (
+          genreCode === "G006" || // イタリアン
+          genreCode === "G007" || // 中華
+          genreCode === "G009" || // アジア
+          genreCode === "G010" || // 各国料理
+          genreCode === "G017" // 韓国料理
+        ) {
+          const info = {
+            id: restaurant.id[0],
+            lat: restaurant.lat[0],
+            lng: restaurant.lng[0],
+            name: restaurant.name[0],
+            genre: restaurant.genre[0].name[0],
+            genreCode: restaurant.genre[0].code[0],
+            address: restaurant.address[0],
+            time: restaurant.open[0],
+            url: restaurant.urls[0].pc[0],
+            photo: restaurant.photo[0].mobile[0].l[0],
+            showDetail: false,
+            liked: ids.includes(restaurant.id[0]),
+          }
+          this.allShopData.push(info)
         }
-        this.allShopData.push(info)
       })
     },
   },
