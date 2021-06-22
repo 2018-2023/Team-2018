@@ -5,18 +5,40 @@
       <a href="#" class="menu">menu</a>
       <router-link to="/" class="link" id="Home">Home</router-link>
       <router-link to="/about" class="link" id="About">About</router-link>
-      <router-link to="/Login" class="link" id="Login">Login</router-link>
+      <p class="link" v-if="user.uid !== ''" @click="signOut">Logout</p>
+      <router-link to="/Login" class="link" id="Login" v-else
+        >Login</router-link
+      >
       <router-link to="/my-page" class="link" id="mypage">mypage</router-link>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from "firebase"
+
 export default {
   data() {
     return {
       exist: false,
     }
+  },
+  methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          alert("ログアウトしました")
+          this.login_modal = false
+          this.$router.push("/Login")
+        })
+    },
+  },
+  computed: {
+    user() {
+      return this.$auth.currentUser
+    },
   },
 }
 </script>
@@ -49,6 +71,7 @@ export default {
   padding: 0px 20px;
   align-items: center;
   font-family: cursive;
+  cursor: pointer;
   border-right: 1px solid black;
   background-color: rgba(255, 255, 255, 0.6);
 }
