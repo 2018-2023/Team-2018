@@ -39,8 +39,6 @@ import { LMarker, LTooltip } from "vue2-leaflet"
 import firebase from "firebase"
 // 非同期処理のライブラリ
 import axios from "axios"
-// ホットペッパーのレスポンスがXML形式だったので変換するためのライブラリ
-const xmlToJson = require("xml2js")
 
 // マーカーが表示されないことを回避するために公式から
 delete Icon.Default.prototype._getIconUrl
@@ -162,19 +160,19 @@ export default {
     center: async function () {
       const HOTPEPPER_URL = "/hotpepper/gourmet/v1/"
       const API_KEY = "e9cd52a7ae2c9ea3"
-      // const jenre = "G002" // TODO ジャンルを指定する
+      const format = "json"
       const range = "5"
       const count = "100"
 
       const res = await axios.get(
-        `${HOTPEPPER_URL}/?key=${API_KEY}&lat=${this.center[0]}&lng=${this.center[1]}&range=${range}&count=${count}`
+        `${HOTPEPPER_URL}/?key=${API_KEY}&format=${format}&lat=${this.center[0]}&lng=${this.center[1]}&range=${range}&count=${count}`
       )
-      const data = await xmlToJson.parseStringPromise(res.data)
+      const data = res.data
 
       const ids = await this.loadLikedShops()
 
       data.results.shop.forEach((restaurant) => {
-        const genreCode = restaurant.genre[0].code[0]
+        const genreCode = restaurant.genre.code
         if (
           genreCode === "G006" || // イタリアン
           genreCode === "G007" || // 中華
@@ -183,18 +181,18 @@ export default {
           genreCode === "G017" // 韓国料理
         ) {
           const info = {
-            id: restaurant.id[0],
-            lat: restaurant.lat[0],
-            lng: restaurant.lng[0],
-            name: restaurant.name[0],
-            genre: restaurant.genre[0].name[0],
-            genreCode: restaurant.genre[0].code[0],
-            address: restaurant.address[0],
-            time: restaurant.open[0],
-            url: restaurant.urls[0].pc[0],
-            photo: restaurant.photo[0].mobile[0].l[0],
+            id: restaurant.id,
+            lat: restaurant.lat,
+            lng: restaurant.lng,
+            name: restaurant.name,
+            genre: restaurant.genre.name,
+            genreCode: restaurant.genre.code,
+            address: restaurant.address,
+            time: restaurant.open,
+            url: restaurant.urls.pc,
+            photo: restaurant.photo.mobile.l,
             showDetail: false,
-            liked: ids.includes(restaurant.id[0]),
+            liked: ids.includes(restaurant.id),
           }
           this.allShopData.push(info)
         }
