@@ -9,7 +9,7 @@
       <router-link to="/Login" class="link" id="Login" v-else
         >Login</router-link
       >
-      <router-link to="/my-page" class="link" id="mypage">mypage</router-link>
+      <router-link to="/mypage" class="link" id="mypage">mypage</router-link>
     </div>
   </div>
 </template>

@@ -59,18 +59,21 @@ export default {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.1);
+  padding-top: 100px;
 }
 #form_container {
   background: #fff;
   color: #555;
-  width: 400px;
-  height: 35%;
+  /* width: 400px; */
+  width: 50%;
+  height: 250px;
   /* padding: 40px; */
   border-radius: 4px;
-  position: absolute;
+  /* position: absolute;
   top: 25%;
   left: 0;
-  right: 0;
+  right: 0; */
+  /* margin: 100px; */
   margin: 0 auto;
 }
 .head_box {
@@ -134,5 +137,11 @@ export default {
 .toSignUp_box {
   margin-top: 2.5rem;
   font-size: 0.8rem;
+}
+
+@media screen and (max-width: 600px) {
+  #form_container {
+    width: 90%;
+  }
 }
 </style>

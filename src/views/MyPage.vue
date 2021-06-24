@@ -2,7 +2,7 @@
   <div id="mypage_container">
     <div class="mypage_home">
       <div v-for="datum in data" :key="datum.id" class="each_box">
-        <a :href="datum.url">
+        <a :href="datum.url" target="_blank" rel="noopener noreferrer">
           <div class="each_shop_box">
             <img :src="datum.photo" alt="shopPhoto" class="shop_photo" />
             <ul>
@@ -67,18 +67,20 @@ export default {
 
 <style scoped>
 #mypage_container {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
+  width: 100%;
+  /* height: 100vh; */
+  padding: 100px 0 100px 0;
+  /* position: relative; */
   background-color: #f5f5f5;
 }
 .mypage_home {
   width: 70%;
-  height: 80%;
-  position: absolute;
+  /* height: 80%; */
+  margin: 0 auto;
+  /* position: absolute; */
   background-color: white;
-  top: 10%;
-  left: 15%;
+  /* top: 10%; */
+  /* left: 15%; */
 }
 .each_box {
   width: 100%;
@@ -129,14 +131,21 @@ export default {
 ul {
   width: 70%;
   height: 150px;
+  list-style: none;
 }
 li {
   width: 100%;
-  height: 25%;
+  /* height: 25%; */
   position: relative;
+}
+li:first-child {
+  height: 20%;
 }
 li:nth-child(2) {
   height: 50%;
+}
+li:last-child {
+  height: 30%;
 }
 .text_place {
   position: absolute;
