@@ -167,11 +167,16 @@ export default {
       const res = await axios.get(
         `${HOTPEPPER_URL}/?key=${API_KEY}&format=${format}&lat=${this.center[0]}&lng=${this.center[1]}&range=${range}&count=${count}`
       )
-      const data = res.data
+      console.log(res)
+      const data = await res.data
+      console.log(data)
+
+      const allShops = await data.results.shop
+      console.log(allShops)
 
       const ids = await this.loadLikedShops()
 
-      data.results.shop.forEach((restaurant) => {
+      allShops.forEach((restaurant) => {
         const genreCode = restaurant.genre.code
         if (
           genreCode === "G006" || // イタリアン
