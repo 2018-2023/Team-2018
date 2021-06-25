@@ -26,12 +26,11 @@
       ></fa-icon>
       <div class="toSignUp_box">
         <span
-          >まだ登録していない方は<router-link
-            to="/signup"
-            class="link"
-            id="SignUp"
-            >こちら</router-link
-          >から♪</span
+          >{{ toSignUp1
+          }}<router-link to="/signup" class="link" id="SignUp">{{
+            toSignUp2
+          }}</router-link
+          >{{ toSignUp3 }}</span
         >
       </div>
     </section>
@@ -50,6 +49,9 @@ export default {
     title: { type: String, required: true },
     func: { type: Function, required: true },
     gFunc: { type: Function, required: true },
+    toSignUp1: { type: String, required: true },
+    toSignUp2: { type: String, required: true },
+    toSignUp3: { type: String, required: true },
   },
 }
 </script>
@@ -64,8 +66,8 @@ export default {
 #form_container {
   background: #fff;
   color: #555;
-  /* width: 400px; */
-  width: 50%;
+  width: 400px;
+  /* width: 50%; */
   height: 250px;
   /* padding: 40px; */
   border-radius: 4px;
@@ -139,9 +141,13 @@ export default {
   font-size: 0.8rem;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 450px) {
+  .form_background {
+    /* padding-top: 200px; */
+  }
   #form_container {
-    width: 90%;
+    width: 95%;
+    /* height: 300px; */
   }
 }
 </style>

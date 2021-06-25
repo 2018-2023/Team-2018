@@ -169,4 +169,27 @@ li:last-child {
   font-size: 0.3rem;
   color: rgba(0, 0, 0, 0.5);
 }
+
+@media screen and (max-width: 450px) {
+  .mypage_home {
+    width: 90%;
+  }
+  .each_shop_box:hover {
+    box-shadow: 2px 2px 4px #e5e5e5;
+    transform: translateY(0);
+    transition-duration: none;
+  }
+  .shop_name {
+    font-size: 0.8rem;
+  }
+  .shop_genre {
+    font-size: 0.6rem;
+  }
+  .shop_address {
+    font-size: 0.4rem;
+  }
+  .shop_time {
+    font-size: 0.1rem;
+  }
+}
 </style>

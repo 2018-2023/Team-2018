@@ -1,6 +1,13 @@
 <template>
   <div class="signUp">
-    <Form title="signUp" :func="signUp" :gFunc="gsignUp" />
+    <Form
+      title="signUp"
+      :func="signUp"
+      :gFunc="gsignUp"
+      toSignUp1=""
+      toSignUp2=""
+      toSignUp3=""
+    />
   </div>
 </template>
 
