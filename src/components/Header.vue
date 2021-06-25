@@ -67,9 +67,7 @@ export default {
 
 <style scoped>
 /* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  position: fixed;
 } */
 .menu {
   /* height: 100%;
@@ -81,7 +79,7 @@ export default {
 .line {
   position: absolute;
   top: 0;
-  right: 40px;
+  right: 20px;
   width: 45px;
   height: 2px;
   background: #333333;
@@ -125,6 +123,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  /* position: fixed; */
 }
 .smlink {
   padding: 30px;
@@ -185,7 +184,7 @@ export default {
   .menu {
     display: block;
     padding: 40px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     /* background-color: rgba(255, 255, 255, 0.6); */
   }
 
