@@ -155,25 +155,29 @@ export default {
         })
       return ids
     },
-  },
-  watch: {
-    center: async function () {
-      const HOTPEPPER_URL = "/hotpepper/gourmet/v1/"
+    // ホットペッパーAPIへのリクエスト
+    async requestApi() {
+      const HOTPEPPER_URL =
+        "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
       const API_KEY = "e9cd52a7ae2c9ea3"
       const format = "json"
       const range = "5"
       const count = "100"
 
       const res = await axios.get(
-        `${HOTPEPPER_URL}/?key=${API_KEY}&format=${format}&lat=${this.center[0]}&lng=${this.center[1]}&range=${range}&count=${count}`
+        `${HOTPEPPER_URL}?key=${API_KEY}&format=${format}&lat=${this.center[0]}&lng=${this.center[1]}&range=${range}&count=${count}`
       )
       console.log(res)
       const data = await res.data
       console.log(data)
-
       const allShops = await data.results.shop
       console.log(allShops)
-
+      return allShops
+    },
+  },
+  watch: {
+    center: async function () {
+      const allShops = await this.requestApi()
       const ids = await this.loadLikedShops()
 
       allShops.forEach((restaurant) => {
