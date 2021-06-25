@@ -79,6 +79,7 @@ export default {
   margin: 0 auto;
   /* position: absolute; */
   background-color: white;
+  border-radius: 5px;
   /* top: 10%; */
   /* left: 15%; */
 }
@@ -171,6 +172,9 @@ li:last-child {
 }
 
 @media screen and (max-width: 450px) {
+  #mypage_container {
+    padding: 50px 0 50px 0;
+  }
   .mypage_home {
     width: 90%;
   }
@@ -180,7 +184,7 @@ li:last-child {
     transition-duration: none;
   }
   .shop_name {
-    font-size: 0.8rem;
+    font-size: 0.8px;
   }
   .shop_genre {
     font-size: 0.6rem;

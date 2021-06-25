@@ -21,7 +21,7 @@ const routes = [
     component: About,
   },
   {
-    path: "/mypage",
+    path: "/my-page",
     name: "MyPage",
     component: MyPage,
   },
