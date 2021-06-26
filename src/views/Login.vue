@@ -1,6 +1,13 @@
 <template>
   <div class="login">
-    <Form title="Login" :func="signIn" :gFunc="gsignIn" />
+    <Form
+      title="Login"
+      :func="signIn"
+      :gFunc="gsignIn"
+      toSignUp1="まだ登録していない方は"
+      toSignUp2="こちら"
+      toSignUp3="から♪"
+    />
   </div>
 </template>
 
