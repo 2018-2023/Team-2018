@@ -157,21 +157,14 @@ export default {
     },
     // ホットペッパーAPIへのリクエスト
     async requestApi() {
-      const HOTPEPPER_URL =
-        "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
-      const API_KEY = "e9cd52a7ae2c9ea3"
-      const format = "json"
-      const range = "5"
-      const count = "100"
+      const lat = parseInt(this.center[0] * 10000000)
+      const lng = parseInt(this.center[1] * 10000000)
 
       const res = await axios.get(
-        `${HOTPEPPER_URL}?key=${API_KEY}&format=${format}&lat=${this.center[0]}&lng=${this.center[1]}&range=${range}&count=${count}`
+        `https://asia-northeast1-team-2018.cloudfunctions.net/hottoPepperApi/${lat}/${lng}`
       )
-      console.log(res)
       const data = await res.data
-      console.log(data)
       const allShops = await data.results.shop
-      console.log(allShops)
       return allShops
     },
   },
