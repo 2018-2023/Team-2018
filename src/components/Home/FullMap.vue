@@ -33,7 +33,10 @@ export default {
   methods: {
     // 取得した位置情報からlat,longを取り出す
     success(position) {
-      this.center = [position.coords.latitude, position.coords.longitude]
+      this.center = [
+        Number(position.coords.latitude.toFixed(8)),
+        Number(position.coords.longitude.toFixed(8)),
+      ]
     },
   },
   created() {
