@@ -143,7 +143,7 @@ export default {
 
 @media screen and (max-width: 450px) {
   .form_background {
-    /* padding-top: 200px; */
+    padding-top: 200px;
   }
   #form_container {
     width: 95%;

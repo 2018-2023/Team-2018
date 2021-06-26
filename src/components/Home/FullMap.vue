@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       // 初期値
-      zoom: 14,
+      zoom: 15,
       center: [0, 0],
     }
   },

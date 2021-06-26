@@ -173,7 +173,7 @@ li:last-child {
 
 @media screen and (max-width: 450px) {
   #mypage_container {
-    padding: 50px 0 50px 0;
+    padding: 150px 0 150px 0;
   }
   .mypage_home {
     width: 90%;
@@ -184,7 +184,7 @@ li:last-child {
     transition-duration: none;
   }
   .shop_name {
-    font-size: 0.8px;
+    font-size: 0.8rem;
   }
   .shop_genre {
     font-size: 0.6rem;
@@ -193,7 +193,7 @@ li:last-child {
     font-size: 0.4rem;
   }
   .shop_time {
-    font-size: 0.1rem;
+    font-size: 7px;
   }
 }
 </style>
