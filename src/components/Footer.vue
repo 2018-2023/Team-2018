@@ -7,13 +7,18 @@
 
 <style scoped>
 .footer {
-  height: 100px;
+  height: 50px;
   background-color: rgba(105, 193, 228, 0.7);
   /* position: fixed;
   bottom: 0; */
   width: 100%;
 }
 .content {
-  padding: 20px;
+  padding-top: 10px;
+  font-size: 15px;
+}
+.footer p {
+  font-size: 10px;
+  padding-top: 5px;
 }
 </style>
