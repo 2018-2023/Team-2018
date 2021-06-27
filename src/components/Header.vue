@@ -215,7 +215,7 @@ export default {
 
   .sm {
     display: flex;
-    font-family: cursive;
+    /* font-family: cursive; */
     top: 100px;
     position: absolute;
     flex-direction: column;
