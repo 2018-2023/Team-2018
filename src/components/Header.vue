@@ -220,11 +220,11 @@ export default {
     position: absolute;
     flex-direction: column;
     width: 100%;
-    background-color: rgba(105, 193, 228, 0.5);
+    background-color: rgba(105, 193, 228, 0.8);
     z-index: 1000;
   }
   .smlink:hover {
-    background-color: rgba(105, 193, 228, 0.5);
+    background-color: rgba(105, 193, 228, 1);
     transition: 0.5s;
   }
 }
