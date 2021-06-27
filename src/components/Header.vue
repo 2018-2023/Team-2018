@@ -192,7 +192,7 @@ export default {
   display: none;
 } */
 
-@media (max-width: 768px) {
+@media (max-width: 450px) {
   .pc {
     display: none;
   }
@@ -215,6 +215,7 @@ export default {
 
   .sm {
     display: flex;
+    font-family: cursive;
     top: 100px;
     position: absolute;
     flex-direction: column;
