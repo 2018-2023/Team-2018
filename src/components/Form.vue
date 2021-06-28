@@ -61,21 +61,14 @@ export default {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.1);
-  padding-top: 100px;
+  padding-top: 200px;
 }
 #form_container {
   background: #fff;
   color: #555;
   width: 400px;
-  /* width: 50%; */
   height: 250px;
-  /* padding: 40px; */
   border-radius: 4px;
-  /* position: absolute;
-  top: 25%;
-  left: 0;
-  right: 0; */
-  /* margin: 100px; */
   margin: 0 auto;
 }
 .head_box {
@@ -142,12 +135,8 @@ export default {
 }
 
 @media screen and (max-width: 450px) {
-  .form_background {
-    padding-top: 200px;
-  }
   #form_container {
     width: 95%;
-    /* height: 300px; */
   }
 }
 </style>
