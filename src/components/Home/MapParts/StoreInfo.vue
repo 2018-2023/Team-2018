@@ -9,10 +9,24 @@
         :options="{ permanent: true, interactive: true, direction: 'top' }"
       >
         <div>
-          {{ data.name }} |
+          <span class="font">{{ data.name }} |</span>
           <!-- いいね -->
-          <span v-if="!data.liked" @click="like(data.id)">☆</span>
-          <span v-else @click="unLike(data.id)">★</span>
+          <span class="font for_PC" v-if="!data.liked" @click="like(data.id)">
+            <fa-icon :icon="['far', 'star']"></fa-icon>
+          </span>
+          <span class="font for_PC" v-else @click="unLike(data.id)">
+            <fa-icon icon="star"></fa-icon>
+          </span>
+          <span
+            class="font for_phone"
+            v-if="!data.liked"
+            @touchstart="like(data.id)"
+          >
+            <fa-icon :icon="['far', 'star']"></fa-icon>あああ
+          </span>
+          <span class="font for_phone" v-else @touchstart="unLike(data.id)">
+            <fa-icon icon="star"></fa-icon>
+          </span>
           <!-- 詳細ボタン -->
           <p v-if="!data.showDetail" @click="handleToolTipClick(data.id)">
             詳細を見る
@@ -203,3 +217,21 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.font {
+  font-size: 16px;
+}
+.for_phone {
+  display: none;
+}
+
+@media screen and (max-width: 450px) {
+  .for_PC {
+    display: none;
+  }
+  .for_phone {
+    display: inline;
+  }
+}
+</style>
