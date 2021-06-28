@@ -12,26 +12,46 @@
           <span class="font">{{ data.name }} |</span>
           <!-- いいね -->
           <span class="font for_PC" v-if="!data.liked" @click="like(data.id)">
-            <fa-icon :icon="['far', 'star']"></fa-icon>
+            <fa-icon :icon="['far', 'star']"></fa-icon>|
           </span>
           <span class="font for_PC" v-else @click="unLike(data.id)">
-            <fa-icon icon="star"></fa-icon>
+            <fa-icon icon="star"></fa-icon>|
           </span>
           <span
             class="font for_phone"
             v-if="!data.liked"
             @touchstart="like(data.id)"
           >
-            <fa-icon :icon="['far', 'star']"></fa-icon>
+            <fa-icon :icon="['far', 'star']"></fa-icon>|
           </span>
           <span class="font for_phone" v-else @touchstart="unLike(data.id)">
-            <fa-icon icon="star"></fa-icon>
+            <fa-icon icon="star"></fa-icon>|
           </span>
           <!-- 詳細ボタン -->
-          <p v-if="!data.showDetail" @click="handleToolTipClick(data.id)">
+          <span
+            v-if="!data.showDetail"
+            @click="handleToolTipClick(data.id)"
+            class="for_PC"
+          >
             詳細を見る
-          </p>
-          <p v-else @click="handleToolTipClick(data.id)">詳細を閉じる</p>
+          </span>
+          <span v-else @click="handleToolTipClick(data.id)" class="for_PC">
+            詳細を閉じる
+          </span>
+          <span
+            v-if="!data.showDetail"
+            @touchstart="handleToolTipClick(data.id)"
+            class="for_phone"
+          >
+            詳細を見る
+          </span>
+          <span
+            v-else
+            @touchstart="handleToolTipClick(data.id)"
+            class="for_phone"
+          >
+            詳細を閉じる
+          </span>
           <!-- 詳細 -->
           <p v-show="data.showDetail">
             {{ data.genre }}<br />
@@ -226,7 +246,7 @@ export default {
   display: none;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 600px) {
   .for_PC {
     display: none;
   }
