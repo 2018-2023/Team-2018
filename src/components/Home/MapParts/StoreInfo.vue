@@ -22,7 +22,7 @@
             v-if="!data.liked"
             @touchstart="like(data.id)"
           >
-            <fa-icon :icon="['far', 'star']"></fa-icon>あああ
+            <fa-icon :icon="['far', 'star']"></fa-icon>
           </span>
           <span class="font for_phone" v-else @touchstart="unLike(data.id)">
             <fa-icon icon="star"></fa-icon>
