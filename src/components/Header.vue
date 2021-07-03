@@ -73,10 +73,6 @@ export default {
 </script>
 
 <style scoped>
-/* #app {
-  width: 100%;
-  position: fixed;
-} */
 #nav {
   height: 100px;
   background-color: rgba(105, 193, 228, 0.5);
@@ -96,11 +92,7 @@ export default {
 }
 
 .menu {
-  /* height: 100%;
-  width: 100px;
-  padding: 30px; */
   display: none;
-  /* cursor: pointer; */
 }
 .line {
   position: absolute;
@@ -188,10 +180,6 @@ export default {
   font-weight: bold;
 }
 
-/* #menu-check {
-  display: none;
-} */
-
 @media (max-width: 450px) {
   .pc {
     display: none;
@@ -215,7 +203,6 @@ export default {
 
   .sm {
     display: flex;
-    /* font-family: cursive; */
     top: 100px;
     position: absolute;
     flex-direction: column;
