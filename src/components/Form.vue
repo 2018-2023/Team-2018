@@ -139,7 +139,7 @@ export default {
 .img_box {
   height: 40px;
   position: absolute;
-  top: 23px;
+  top: 20px;
   right: 15px;
   width: 40px;
   cursor: pointer;
