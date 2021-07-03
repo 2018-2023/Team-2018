@@ -3,12 +3,14 @@
     <section id="form_container">
       <div class="head_box">
         <h1 class="form_title">{{ title }}</h1>
-        <img
-          src="@/assets/google.png"
-          @click="gFunc"
-          class="google_icon"
-          alt="google_icon"
-        />
+        <div class="img_box">
+          <img
+            src="@/assets/google.png"
+            @click="gFunc"
+            class="google_icon"
+            alt="google_icon"
+          />
+        </div>
         <fa-icon icon="mouse-pointer" class="mouse_pointer"></fa-icon>
       </div>
       <div class="input_box">
@@ -84,9 +86,10 @@ export default {
 }
 .google_icon {
   position: absolute;
-  top: 23px;
-  right: 15px;
+  top: 5px;
+  left: 5px;
   width: 30px;
+  line-height: 40px;
   cursor: pointer;
 }
 .mouse_pointer {
@@ -133,10 +136,23 @@ export default {
   margin-top: 2.5rem;
   font-size: 0.8rem;
 }
+.img_box {
+  height: 40px;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  width: 40px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
 
 @media screen and (max-width: 450px) {
   #form_container {
     width: 95%;
+  }
+  .form_text {
+    width: 13rem;
   }
 }
 </style>

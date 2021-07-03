@@ -9,8 +9,6 @@
 .footer {
   height: 50px;
   background-color: rgba(105, 193, 228, 0.7);
-  /* position: fixed;
-  bottom: 0; */
   width: 100%;
 }
 .content {
